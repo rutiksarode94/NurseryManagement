@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Tree</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #4CAF50;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+            height: 150px;
+        }
+
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Tree</h1>
+    <form method="post">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" value="{{ tree.name }}" required>
+
+        <label for="species">Species</label>
+        <input type="text" id="species" name="species" value="{{ tree.species }}" required>
+
+        <label for="age">Age</label>
+        <input type="number" id="age" name="age" value="{{ tree.age }}" required>
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" required>{{ tree.description }}</textarea>
+
+        <input type="submit" value="Save Changes">
+
+    </form>
+
+{% for tree in trees %}
+  <!-- Display tree information here -->
+
+  <!-- Form to delete the tree -->
+  <form action="{{ url_for('delete_tree', id=tree.id) }}" method="post">
+    <input type="hidden" name="_method" value="DELETE"> <!-- Use a hidden field to simulate DELETE method -->
+    <button type="submit">Delete Tree</button>
+  </form>
+{% endfor %}
+</body>
+</html>
